@@ -1,0 +1,65 @@
+.contact-card {
+  border-radius: 1rem;
+}
+
+.contact-info-panel {
+  min-height: 100%;
+  background: linear-gradient(180deg, rgba(45, 134, 255, 1), rgba(109, 194, 255, 1));
+}
+
+.contact-info-panel h2,
+.contact-info-panel p,
+.contact-info-panel .info-label,
+.contact-info-panel a {
+  color: #ffffff;
+}
+
+.contact-info-list .info-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.contact-info-list .info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  display: block;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.3rem;
+  opacity: 0.85;
+}
+
+.contact-info-list a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.contact-card .form-control {
+  border-radius: 0.75rem;
+  border-color: #d9e7ff;
+}
+
+.contact-card .form-control:focus {
+  box-shadow: 0 0 0 0.15rem rgba(45, 134, 255, 0.2);
+}
+
+.btn-primary {
+  background: #1e6fff;
+  border-color: #1e6fff;
+}
+
+@media (max-width: 991px) {
+  .contact-info-panel {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .contact-card {
+    border-radius: 1.25rem;
+  }
+}

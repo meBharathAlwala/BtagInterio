@@ -1,0 +1,146 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+:root {
+  --theme-surface: #f0f8ff;
+  --theme-background: #e8f4ff;
+  --theme-primary: #2d86ff;
+  --theme-primary-contrast: #ffffff;
+  --theme-primary-soft: #cfe3ff;
+  --theme-text: #0f244d;
+  --theme-muted: #5e7ca0;
+  --theme-navbar: #a7d8ff;
+  --theme-navbar-text: #07316c;
+  --theme-card: #ffffff;
+  --theme-shadow: 0 1.5rem 3rem rgba(45, 134, 255, 0.15);
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--theme-background);
+  color: var(--theme-text);
+}
+
+.page {
+  padding-top: 6.5rem;
+}
+
+.fade-in {
+  animation: fadeIn 0.7s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar-custom {
+  background: var(--theme-navbar) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link,
+.navbar-custom .social-icon {
+  color: var(--theme-navbar-text) !important;
+}
+
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.navbar-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+}
+
+.brand-text {
+  font-weight: 700;
+  color: var(--theme-navbar-text) !important;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.navbar-custom .nav-link {
+  padding: 0.8rem 0.9rem;
+}
+
+.navbar-custom .nav-link.active {
+  font-weight: 700;
+  color: var(--theme-primary) !important;
+}
+
+.social-links {
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(7, 49, 108, 0.2);
+  transition: background 0.2s ease, transform 0.2s ease;
+  color: var(--theme-navbar-text) !important;
+}
+
+.social-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 991px) {
+  .navbar-custom .nav-link {
+    padding: 0.7rem 0.8rem;
+  }
+
+  .social-links {
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .page {
+    padding-top: 8rem;
+  }
+
+  .hero {
+    padding: 3rem 1.25rem;
+    border-radius: 1.5rem;
+  }
+
+  .navbar-custom {
+    padding: 0.4rem 0;
+  }
+}
+
+@media (max-width: 575px) {
+  .navbar-custom .nav-link {
+    padding: 0.65rem 0.7rem;
+    font-size: 0.95rem;
+  }
+
+  .social-icon {
+    width: 32px;
+    height: 32px;
+  }
+}
