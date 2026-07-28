@@ -5,7 +5,10 @@
 .hero {
   padding: 4rem 2rem;
   border-radius: 2rem;
-  background: linear-gradient(135deg, #FFFFFF, #F8F9FA);
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(248,249,250,0.72)), url('/bg.png');
+  background-size: 130%;
+  background-position: center;
+  background-repeat: no-repeat;
   box-shadow: var(--theme-shadow);
 }
 

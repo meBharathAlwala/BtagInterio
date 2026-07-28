@@ -70,6 +70,10 @@ body {
   gap: 0.5rem;
   text-decoration: none;
   min-width: 0;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
 }
 
 .navbar-logo {
@@ -87,6 +91,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 12rem;
+  text-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
 }
 
 .navbar-custom .nav-link {
