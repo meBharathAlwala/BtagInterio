@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { CLIENT_CONFIG, ClientConfig } from './client.config';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,5 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   styleUrls: ['./app.css']
 })
 export class App {
-  protected readonly title = signal('btag');
+  constructor(@Inject(CLIENT_CONFIG) protected readonly clientConfig: ClientConfig) {}
 }

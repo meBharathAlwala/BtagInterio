@@ -4,7 +4,7 @@
 
 .contact-info-panel {
   min-height: 100%;
-  background: linear-gradient(180deg, rgba(45, 134, 255, 1), rgba(109, 194, 255, 1));
+  background: linear-gradient(180deg, #1E293B, #0F172A);
 }
 
 .contact-info-panel h2,
@@ -43,12 +43,12 @@
 }
 
 .contact-card .form-control:focus {
-  box-shadow: 0 0 0 0.15rem rgba(45, 134, 255, 0.2);
+  box-shadow: 0 0 0 0.15rem rgba(20, 83, 45, 0.15);
 }
 
 .btn-primary {
-  background: #1e6fff;
-  border-color: #1e6fff;
+  background: #16A34A;
+  border-color: #16A34A;
 }
 
 @media (max-width: 991px) {

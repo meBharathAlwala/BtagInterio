@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { CLIENT_CONFIG, ClientConfig } from '../client.config';
 
 @Component({
   selector: 'app-about',
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './about.html',
   styleUrls: ['./about.css'],
 })
-export class About {}
+export class About {
+  constructor(@Inject(CLIENT_CONFIG) protected readonly clientConfig: ClientConfig) {}
+}
