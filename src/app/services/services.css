@@ -1,11 +1,57 @@
 .service-card {
   border-radius: 1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  animation: popIn 0.6s ease forwards;
+  overflow: hidden;
 }
 
 .service-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.08);
+}
+
+.service-media {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.service-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-img {
+  transform: scale(1.08);
+}
+
+.service-type-list {
+  padding-left: 1.1rem;
+  color: #444;
+}
+
+.service-type-list li {
+  margin-bottom: 0.35rem;
+}
+
+.service-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #7B5EA7;
+  background: rgba(123, 94, 167, 0.12);
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.92) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 @media (max-width: 767px) {

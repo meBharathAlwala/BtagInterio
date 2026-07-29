@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Ensure Bootstrap modals/backdrops always render above the fixed navbar and floating action buttons (whatsapp-fab: 1090) */
+.modal-backdrop {
+  z-index: 1095;
+}
+
+.modal {
+  z-index: 1100;
+}
+
+.section-heading {
+  max-width: 620px;
+  margin: 0 auto 3rem;
+}
+.section-label {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: rgba(123, 94, 167, 0.12);
+  color: #7B5EA7;
+}
+.section-title {
+  font-size: clamp(2.1rem, 2.5vw, 2.7rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.75rem;
+  color: #4A2F7A;
+}
+.section-copy {
+  font-size: 1rem;
+  color: rgba(30, 41, 59, 0.72);
+}
