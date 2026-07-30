@@ -18,26 +18,26 @@
               <div class="contact-info-list">
                 <div class="info-item mb-3">
                   <span class="info-label">Phone</span>
-                  <a href="tel:+916303800938">6303800938</a>
+                  <a [href]="'tel:' + clientConfig.contact.phoneIntl">{{ clientConfig.contact.phone }}</a>
                 </div>
                 <div class="info-item mb-3">
                   <span class="info-label">WhatsApp</span>
-                  <a href="https://wa.me/916303800938" target="_blank" rel="noopener">Chat on WhatsApp</a>
+                  <a [href]="'https://wa.me/' + clientConfig.contact.whatsappNumber" target="_blank" rel="noopener">Chat on WhatsApp</a>
                 </div>
                 <div class="info-item mb-3">
                   <span class="info-label">Location</span>
-                  <p class="mb-0">Hyderabad</p>
+                  <p class="mb-0">{{ clientConfig.contact.location }}</p>
                 </div>
                 <div class="info-item mb-3">
                   <span class="info-label">Email</span>
-                  <a href="mailto:btag.interio@gmail.com">btag.interio@gmail.com</a>
+                  <a [href]="'mailto:' + clientConfig.contact.email">{{ clientConfig.contact.email }}</a>
                 </div>
               </div>
               <div class="social-row mt-4">
-                <a href="https://www.instagram.com/btaginterio/" target="_blank" rel="noopener" aria-label="Instagram">
+                <a [href]="clientConfig.social.instagramUrl" target="_blank" rel="noopener" aria-label="Instagram">
                   <img src="/instagram-logo.png" alt="Instagram" class="social-icon-img">
                 </a>
-                <a href="https://www.youtube.com/@BtagInterio" target="_blank" rel="noopener" aria-label="YouTube">
+                <a [href]="clientConfig.social.youtubeUrl" target="_blank" rel="noopener" aria-label="YouTube">
                   <img src="/youtube.png" alt="YouTube" class="social-icon-img">
                 </a>
               </div>

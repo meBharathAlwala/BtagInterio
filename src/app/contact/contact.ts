@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactForm } from '../contact-form/contact-form';
+import { CLIENT_CONFIG, ClientConfig } from '../client.config';
 
 @Component({
   selector: 'app-contact',
@@ -9,4 +10,6 @@ import { ContactForm } from '../contact-form/contact-form';
   templateUrl: './contact.html',
   styleUrls: ['./contact.css'],
 })
-export class Contact {}
+export class Contact {
+  constructor(@Inject(CLIENT_CONFIG) protected readonly clientConfig: ClientConfig) {}
+}

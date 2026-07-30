@@ -1,9 +1,9 @@
 ﻿<nav class="navbar navbar-expand-lg navbar-custom fixed-top shadow-sm">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center" routerLink="/">
-      <img src="/btag_logo.png" [alt]="clientConfig.name + ' Logo'" class="navbar-logo">
+      <img [src]="clientConfig.logo" [alt]="clientConfig.name + ' Logo'" class="navbar-logo">
       <div class="brand-copy">
-        <span class="brand-text"><strong>Btag</strong> Interio</span>
+        <span class="brand-text"><strong>{{ clientConfig.shortName }}</strong> Interio</span>
       </div>
     </a>
     <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mainNavbarOffcanvas" aria-controls="#mainNavbarOffcanvas" aria-label="Toggle navigation">
@@ -18,10 +18,10 @@
         <li class="nav-item"><a class="nav-link" routerLink="/about" routerLinkActive="active">About Us</a></li>
       </ul>
       <div class="social-links d-flex align-items-center ms-3 mt-0">
-        <a class="social-icon instagram" href="https://www.instagram.com/btaginterio/" target="_blank" rel="noopener" aria-label="Instagram">
+        <a class="social-icon instagram" [href]="clientConfig.social.instagramUrl" target="_blank" rel="noopener" aria-label="Instagram">
           <img src="/instagram-logo.png" alt="Instagram" class="social-icon-img">
         </a>
-        <a class="social-icon youtube" href="https://www.youtube.com/@BtagInterio" target="_blank" rel="noopener" aria-label="YouTube">
+        <a class="social-icon youtube" [href]="clientConfig.social.youtubeUrl" target="_blank" rel="noopener" aria-label="YouTube">
           <img src="/youtube.png" alt="YouTube" class="social-icon-img">
         </a>
       </div>
@@ -43,10 +43,10 @@
       <li class="nav-item"><a class="nav-link" routerLink="/about" routerLinkActive="active" data-bs-dismiss="offcanvas">About Us</a></li>
     </ul>
     <div class="social-links d-flex align-items-center mt-4">
-      <a class="social-icon instagram" href="https://www.instagram.com/btaginterio/" target="_blank" rel="noopener" aria-label="Instagram">
+      <a class="social-icon instagram" [href]="clientConfig.social.instagramUrl" target="_blank" rel="noopener" aria-label="Instagram">
         <i class="fab fa-instagram" aria-hidden="true"></i>
       </a>
-      <a class="social-icon youtube" href="https://www.youtube.com/@BtagInterio" target="_blank" rel="noopener" aria-label="YouTube">
+      <a class="social-icon youtube" [href]="clientConfig.social.youtubeUrl" target="_blank" rel="noopener" aria-label="YouTube">
         <i class="fab fa-youtube" aria-hidden="true"></i>
       </a>
     </div>
@@ -61,6 +61,6 @@
   </div>
 </main>
 
-<a class="whatsapp-fab" href="https://wa.me/916303800938" target="_blank" rel="noopener" aria-label="WhatsApp chat">
+<a class="whatsapp-fab" [href]="'https://wa.me/' + clientConfig.contact.whatsappNumber" target="_blank" rel="noopener" aria-label="WhatsApp chat">
   <img src="/whatsapp.png" alt="WhatsApp" class="whatsapp-icon">
 </a>
