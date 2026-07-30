@@ -1,0 +1,19 @@
+.form-control {
+  border-radius: 0.75rem;
+  border-color: rgba(123, 94, 167, 0.25);
+}
+
+.form-control:focus {
+  border-color: #7B5EA7;
+  box-shadow: 0 0 0 0.15rem rgba(123, 94, 167, 0.18);
+}
+
+.btn-primary {
+  background: #7B5EA7;
+  border-color: #7B5EA7;
+}
+
+.btn-primary:hover {
+  background: #6a4f92;
+  border-color: #6a4f92;
+}

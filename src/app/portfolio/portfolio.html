@@ -1,0 +1,50 @@
+<section class="page-section fade-in">
+  <div class="container py-5">
+    <div class="section-heading text-center mb-5">
+      <span class="section-label">Our Work</span>
+      <h2 class="display-6 section-title">Portfolio</h2>
+      <p class="section-copy text-muted mx-auto">Explore premium interiors created for modern living spaces across Hyderabad and beyond.</p>
+    </div>
+
+    <div class="row g-4 portfolio-grid">
+      <div class="col-sm-6 col-md-4" *ngFor="let item of images; index as i">
+        <div class="card shadow-sm border-0 portfolio-card">
+          <div class="portfolio-media">
+            <img [src]="item.src" [alt]="item.title" class="portfolio-img">
+            <div class="overlay">
+              <div class="overlay-content">
+                <div>
+                  <span class="portfolio-badge">Featured</span>
+                  <h5 class="mb-1 text-white">{{ item.title }}</h5>
+                </div>
+                <button type="button" class="btn btn-sm btn-light" attr.data-bs-toggle="modal" [attr.data-bs-target]="'#portfolioModal-' + i">View</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="portfolio-description text-muted mb-0">{{ item.description }}</p>
+          </div>
+        </div>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="portfolioModal-{{i}}" tabindex="-1" aria-labelledby="portfolioModalLabel-{{i}}" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content portfolio-modal">
+              <div class="modal-header border-0">
+                <h5 class="modal-title" id="portfolioModalLabel-{{i}}">{{ item.title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <img [src]="item.src" [alt]="item.title" class="img-fluid mb-3 rounded-3">
+                <p class="mb-0">{{ item.description }}</p>
+              </div>
+              <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
