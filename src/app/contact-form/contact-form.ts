@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, Inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import emailjs from '@emailjs/browser';
+import { CLIENT_CONFIG, ClientConfig } from '../client.config';
 
 @Component({
   selector: 'app-contact-form',
@@ -14,11 +15,15 @@ export class ContactForm {
   sending = signal(false);
   status = signal<'idle' | 'success' | 'error'>('idle');
 
+  constructor(@Inject(CLIENT_CONFIG) private readonly clientConfig: ClientConfig) {}
+
   onSubmit(form: HTMLFormElement) {
     this.sending.set(true);
     this.status.set('idle');
 
-    emailjs.sendForm('service_6dfmmlt', 'template_r5l7c4k', form, 'mWmJ7Dnh3hSJIud1_')
+    const { serviceId, templateId, publicKey } = this.clientConfig.emailjs;
+
+    emailjs.sendForm(serviceId, templateId, form, publicKey)
       .then(() => {
         this.sending.set(false);
         this.status.set('success');

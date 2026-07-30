@@ -1,5 +1,6 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { CLIENT_CONFIG, ClientConfig } from './client.config';
 
 @Component({
@@ -9,6 +10,13 @@ import { CLIENT_CONFIG, ClientConfig } from './client.config';
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
-export class App {
-  constructor(@Inject(CLIENT_CONFIG) protected readonly clientConfig: ClientConfig) {}
+export class App implements OnInit {
+  constructor(
+    @Inject(CLIENT_CONFIG) protected readonly clientConfig: ClientConfig,
+    private readonly titleService: Title,
+  ) {}
+
+  ngOnInit(): void {
+    this.titleService.setTitle(this.clientConfig.title);
+  }
 }
