@@ -1,0 +1,24 @@
+.admin-login-card {
+  border-radius: 1.25rem;
+  animation: adminPopIn 0.5s ease both;
+}
+
+@keyframes adminPopIn {
+  from { opacity: 0; transform: scale(0.96) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.admin-login-card .btn-primary {
+  background: #7B5EA7;
+  border-color: #7B5EA7;
+}
+
+.admin-login-card .btn-primary:hover {
+  background: #6a4f92;
+  border-color: #6a4f92;
+}
+
+.admin-login-card .form-control:focus {
+  border-color: #7B5EA7;
+  box-shadow: 0 0 0 0.15rem rgba(123, 94, 167, 0.18);
+}

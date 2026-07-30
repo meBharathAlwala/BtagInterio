@@ -1,0 +1,12 @@
+.admin-dashboard-section .nav-tabs .nav-link {
+  color: #4A3728;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+}
+
+.admin-dashboard-section .nav-tabs .nav-link.active {
+  color: #7B5EA7;
+  border-bottom-color: #7B5EA7;
+  font-weight: 600;
+}

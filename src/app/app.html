@@ -16,6 +16,7 @@
         <li class="nav-item"><a class="nav-link" routerLink="/services" routerLinkActive="active">Services</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact Us</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/about" routerLinkActive="active">About Us</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/admin/login" routerLinkActive="active">Admin</a></li>
       </ul>
       <div class="social-links d-flex align-items-center ms-3 mt-0">
         <a class="social-icon instagram" [href]="clientConfig.social.instagramUrl" target="_blank" rel="noopener" aria-label="Instagram">
@@ -41,6 +42,7 @@
       <li class="nav-item"><a class="nav-link" routerLink="/services" routerLinkActive="active" data-bs-dismiss="offcanvas">Services</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/contact" routerLinkActive="active" data-bs-dismiss="offcanvas">Contact Us</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/about" routerLinkActive="active" data-bs-dismiss="offcanvas">About Us</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/admin/login" routerLinkActive="active" data-bs-dismiss="offcanvas">Admin</a></li>
     </ul>
     <div class="social-links d-flex align-items-center mt-4">
       <a class="social-icon instagram" [href]="clientConfig.social.instagramUrl" target="_blank" rel="noopener" aria-label="Instagram">
@@ -60,6 +62,10 @@
     </div>
   </div>
 </main>
+
+<footer class="site-footer text-center py-3">
+  <p class="mb-0 small">&copy; {{ currentYear }} {{ clientConfig.name }}. All rights reserved.</p>
+</footer>
 
 <a class="whatsapp-fab" [href]="'https://wa.me/' + clientConfig.contact.whatsappNumber" target="_blank" rel="noopener" aria-label="WhatsApp chat">
   <img src="/whatsapp.png" alt="WhatsApp" class="whatsapp-icon">

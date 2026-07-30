@@ -1,0 +1,214 @@
+<div class="quotation-wrapper">
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+      <h5 class="mb-3 d-flex align-items-center gap-2">
+        Measurement Converter
+        <span class="info-tooltip" tabindex="0">
+          <i class="fas fa-info-circle text-muted"></i>
+          <span class="tooltip-content">
+            <strong>Quick reference</strong>
+            <ul class="mb-0 ps-3">
+              <li>1 inch = 25.4 mm</li>
+              <li>1 inch = 2.54 cm</li>
+              <li>1 foot = 12 inches</li>
+              <li>1 foot = 304.8 mm</li>
+              <li>1 cm = 0.3937 inch</li>
+              <li>1 mm = 0.0394 inch</li>
+            </ul>
+          </span>
+        </span>
+      </h5>
+
+      <div class="d-flex gap-2 mb-3">
+        <button
+          type="button"
+          class="btn btn-sm"
+          [class.btn-primary]="converterTab === 'unit'"
+          [class.btn-outline-primary]="converterTab !== 'unit'"
+          (click)="converterTab = 'unit'"
+        >Unit Converter</button>
+        <button
+          type="button"
+          class="btn btn-sm"
+          [class.btn-primary]="converterTab === 'area'"
+          [class.btn-outline-primary]="converterTab !== 'area'"
+          (click)="converterTab = 'area'"
+        >Area (Sq.ft) Calculator</button>
+      </div>
+
+      <div class="row g-3 align-items-end" *ngIf="converterTab === 'unit'">
+        <div class="col-md-3">
+          <label class="form-label">Value</label>
+          <input type="number" class="form-control" name="converterValue" [(ngModel)]="converterValue" placeholder="e.g. 100">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">From</label>
+          <select class="form-select" name="converterFromUnit" [(ngModel)]="converterFromUnit">
+            <option *ngFor="let unit of measurementUnits" [value]="unit">{{ unit }}</option>
+          </select>
+        </div>
+        <div class="col-md-1 text-center">
+          <button type="button" class="btn btn-outline-secondary" (click)="swapConverterUnits()" aria-label="Swap units" title="Swap units">
+            <i class="fas fa-exchange-alt"></i>
+          </button>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">To</label>
+          <select class="form-select" name="converterToUnit" [(ngModel)]="converterToUnit">
+            <option *ngFor="let unit of measurementUnits" [value]="unit">{{ unit }}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Result</label>
+          <div class="form-control bg-light fw-semibold">{{ convertedValue !== null ? (convertedValue | number: '1.0-3') : '-' }}</div>
+        </div>
+      </div>
+
+      <div class="row g-3 align-items-end" *ngIf="converterTab === 'area'">
+        <div class="col-md-3">
+          <label class="form-label">Length</label>
+          <input type="number" class="form-control" name="areaLength" [(ngModel)]="areaLength" placeholder="e.g. 10">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Width</label>
+          <input type="number" class="form-control" name="areaWidth" [(ngModel)]="areaWidth" placeholder="e.g. 8">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Unit</label>
+          <select class="form-select" name="areaUnit" [(ngModel)]="areaUnit">
+            <option *ngFor="let unit of measurementUnits" [value]="unit">{{ unit }}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Area (Sq.ft)</label>
+          <div class="form-control bg-light fw-semibold">{{ areaInSqFt !== null ? (areaInSqFt | number: '1.0-2') : '-' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+      <h5 class="mb-3">New Quotation</h5>
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Customer Name</label>
+          <input type="text" class="form-control" name="customerName" [(ngModel)]="customerName" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Phone</label>
+          <input type="tel" class="form-control" name="customerPhone" [(ngModel)]="customerPhone">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Project Location</label>
+          <input type="text" class="form-control" name="projectLocation" [(ngModel)]="projectLocation">
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <div class="table-responsive">
+        <table class="table align-middle quotation-items-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th class="col-qty">Qty</th>
+              <th class="col-rate">Rate (₹)</th>
+              <th class="col-amount">Amount (₹)</th>
+              <th class="col-action"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of items; let i = index">
+              <td>
+                <input type="text" class="form-control" [name]="'desc' + i" [(ngModel)]="item.description" placeholder="e.g. Modular kitchen">
+              </td>
+              <td>
+                <input type="number" min="0" class="form-control" [name]="'qty' + i" [(ngModel)]="item.quantity">
+              </td>
+              <td>
+                <input type="number" min="0" class="form-control" [name]="'rate' + i" [(ngModel)]="item.rate">
+              </td>
+              <td class="fw-semibold">{{ item.quantity * item.rate | number: '1.0-2' }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="removeItem(i)"
+                  [disabled]="items.length === 1"
+                  aria-label="Remove item"
+                >&times;</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+        <button type="button" class="btn btn-sm btn-outline-primary" (click)="addItem()">+ Add Item</button>
+        <span class="text-muted small ms-1">Quick add:</span>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary suggestion-chip"
+          *ngFor="let suggestion of itemSuggestions"
+          (click)="addSuggestedItem(suggestion)"
+        >{{ suggestion }}</button>
+      </div>
+
+      <div class="d-flex justify-content-end align-items-center gap-4">
+        <div class="quotation-total">
+          <span class="text-muted me-2">Total:</span>
+          <strong>₹ {{ total | number: '1.0-2' }}</strong>
+        </div>
+        <button type="button" class="btn btn-outline-primary" (click)="downloadCurrentPdf()">Download PDF</button>
+        <button type="button" class="btn btn-outline-primary" (click)="downloadCurrentExcel()">Download Excel</button>
+        <button type="button" class="btn btn-primary" (click)="saveQuotation()">Save Quotation</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm" *ngIf="savedQuotations().length">
+    <div class="card-body p-4">
+      <div class="d-flex flex-wrap justify-content-between align-items-center mb-1 gap-2">
+        <h5 class="mb-0">Saved Quotations</h5>
+        <button type="button" class="btn btn-sm btn-outline-primary" (click)="downloadAllExcel()">Download All (Excel)</button>
+      </div>
+      <p class="text-muted small mb-3">
+        <i class="fas fa-info-circle me-1"></i>
+        These are stored only in this browser on this device, not on a server. Clearing browser data or
+        switching browsers/devices will remove them, so download the PDF for any quotation you need to keep.
+      </p>
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Phone</th>
+              <th>Location</th>
+              <th>Items</th>
+              <th>Total (₹)</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let quotation of savedQuotations()">
+              <td>{{ quotation.createdAt }}</td>
+              <td>{{ quotation.customerName }}</td>
+              <td>{{ quotation.customerPhone || '-' }}</td>
+              <td>{{ quotation.projectLocation || '-' }}</td>
+              <td>{{ quotation.items.length }}</td>
+              <td>{{ quotation.total | number: '1.0-2' }}</td>
+              <td class="text-end">
+                <button type="button" class="btn btn-sm btn-outline-primary me-2" (click)="downloadPdf(quotation)">Download PDF</button>
+                <button type="button" class="btn btn-sm btn-outline-primary me-2" (click)="downloadExcel(quotation)">Download Excel</button>
+                <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteQuotation(quotation.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
