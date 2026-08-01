@@ -1,0 +1,40 @@
+.measurements-table th,
+.measurements-table td {
+  vertical-align: middle;
+}
+
+.col-dim { width: 110px; }
+.col-unit { width: 100px; }
+.col-sqft { width: 120px; }
+.col-action { width: 48px; }
+
+.measurements-total strong {
+  font-size: 1.15rem;
+  color: #7B5EA7;
+}
+
+.measurements-wrapper .btn-primary {
+  background: #7B5EA7;
+  border-color: #7B5EA7;
+}
+
+.measurements-wrapper .btn-primary:hover {
+  background: #6a4f92;
+  border-color: #6a4f92;
+}
+
+.measurements-wrapper .btn-outline-primary {
+  color: #7B5EA7;
+  border-color: #7B5EA7;
+}
+
+.measurements-wrapper .btn-outline-primary:hover {
+  background: #7B5EA7;
+  border-color: #7B5EA7;
+  color: #fff;
+}
+
+.suggestion-chip {
+  border-radius: 999px;
+  font-size: 0.82rem;
+}

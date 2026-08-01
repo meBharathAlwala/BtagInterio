@@ -1,0 +1,16 @@
+.revised-quotation-wrapper .table th,
+.revised-quotation-wrapper .table td {
+  vertical-align: middle;
+}
+
+.revised-quotation-wrapper .table tfoot th {
+  border-top: 2px solid #dee2e6;
+}
+
+.revised-quotation-wrapper .table .table-secondary td {
+  font-size: 0.95rem;
+}
+
+.revised-quotation-wrapper .table .table-light td {
+  background-color: #f8f9fa;
+}

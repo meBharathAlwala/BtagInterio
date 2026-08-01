@@ -1,23 +1,135 @@
 <section class="page-section fade-in admin-dashboard-section">
-  <div class="container py-5">
+  <div class="container pt-2 pb-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="h4 mb-0">Admin Dashboard</h2>
       <button type="button" class="btn btn-outline-secondary btn-sm" (click)="logout()">Logout</button>
     </div>
 
-    <ul class="nav nav-tabs mb-4">
-      <li class="nav-item" *ngFor="let tab of tabs">
-        <button
-          type="button"
-          class="nav-link"
-          [class.active]="activeTab() === tab.id"
-          (click)="activeTab.set(tab.id)"
-        >{{ tab.label }}</button>
-      </li>
-    </ul>
+    <div class="d-flex justify-content-end mb-3">
+      <button type="button" class="btn btn-outline-primary btn-sm" (click)="openConverterPopup()">
+        <i class="fas fa-ruler-combined me-1"></i>
+        Measurement Converter
+      </button>
+    </div>
+
+    <div class="admin-tabs mb-4" role="tablist" aria-label="Admin sections">
+      <button
+        type="button"
+        class="admin-tab-btn"
+        *ngFor="let tab of tabs"
+        [class.active]="activeTab() === tab.id"
+        [class.tab-quotation]="tab.id === 'quotation'"
+        [class.tab-measurements]="tab.id === 'measurements'"
+        [class.tab-estimate]="tab.id === 'estimate'"
+        [class.tab-charts]="tab.id === 'estimate-charts'"
+        (click)="activeTab.set(tab.id)"
+      >
+        <span class="tab-icon"><i class="fas" [ngClass]="tab.icon"></i></span>
+        <span class="tab-content">
+          <span class="tab-title">{{ tab.label }}</span>
+          <span class="tab-hint">{{ tab.hint }}</span>
+        </span>
+      </button>
+    </div>
 
     <div class="tab-content">
-      <app-quotation *ngIf="activeTab() === 'quotation'"></app-quotation>
+      <app-quotation [hidden]="activeTab() !== 'quotation'"></app-quotation>
+      <app-measurements [hidden]="activeTab() !== 'measurements'"></app-measurements>
+      <app-material-estimate [hidden]="activeTab() !== 'estimate'" (revisedQuotationRequested)="onRevisedQuotationRequested($event)"></app-material-estimate>
+      <app-revised-quotation [snapshot]="revisedSnapshot" [hidden]="activeTab() !== 'revised-quotation'"></app-revised-quotation>
+      <app-estimate-charts [snapshot]="revisedSnapshot" [hidden]="activeTab() !== 'estimate-charts'"></app-estimate-charts>
+    </div>
+
+    <div class="converter-modal-backdrop" *ngIf="showConverterPopup()" (click)="closeConverterPopup()"></div>
+    <div class="converter-modal" *ngIf="showConverterPopup()" role="dialog" aria-modal="true" aria-label="Measurement Converter">
+      <div class="converter-modal-header">
+        <h5 class="mb-0 d-flex align-items-center gap-2">
+          Measurement Converter
+          <span class="info-tooltip" tabindex="0">
+            <i class="fas fa-info-circle text-muted"></i>
+            <span class="tooltip-content">
+              <strong>Quick reference</strong>
+              <ul class="mb-0 ps-3">
+                <li>1 inch = 25.4 mm</li>
+                <li>1 inch = 2.54 cm</li>
+                <li>1 foot = 12 inches</li>
+                <li>1 foot = 304.8 mm</li>
+                <li>1 cm = 0.3937 inch</li>
+                <li>1 mm = 0.0394 inch</li>
+              </ul>
+            </span>
+          </span>
+        </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeConverterPopup()"></button>
+      </div>
+
+      <div class="converter-modal-body">
+        <div class="d-flex gap-2 mb-3">
+          <button
+            type="button"
+            class="btn btn-sm"
+            [class.btn-primary]="converterTab === 'unit'"
+            [class.btn-outline-primary]="converterTab !== 'unit'"
+            (click)="converterTab = 'unit'"
+          >Unit Converter</button>
+          <button
+            type="button"
+            class="btn btn-sm"
+            [class.btn-primary]="converterTab === 'area'"
+            [class.btn-outline-primary]="converterTab !== 'area'"
+            (click)="converterTab = 'area'"
+          >Area (Sq.ft) Calculator</button>
+        </div>
+
+        <div class="row g-3 align-items-end" *ngIf="converterTab === 'unit'">
+          <div class="col-md-3">
+            <label class="form-label">Value</label>
+            <input type="number" class="form-control" name="converterValue" [(ngModel)]="converterValue" placeholder="e.g. 100">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">From</label>
+            <select class="form-select" name="converterFromUnit" [(ngModel)]="converterFromUnit">
+              <option *ngFor="let unit of measurementUnits" [value]="unit">{{ unit }}</option>
+            </select>
+          </div>
+          <div class="col-md-1 text-center">
+            <button type="button" class="btn btn-outline-secondary" (click)="swapConverterUnits()" aria-label="Swap units" title="Swap units">
+              <i class="fas fa-exchange-alt"></i>
+            </button>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">To</label>
+            <select class="form-select" name="converterToUnit" [(ngModel)]="converterToUnit">
+              <option *ngFor="let unit of measurementUnits" [value]="unit">{{ unit }}</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Result</label>
+            <div class="form-control bg-light fw-semibold">{{ convertedValue !== null ? (convertedValue | number: '1.0-3') : '-' }}</div>
+          </div>
+        </div>
+
+        <div class="row g-3 align-items-end" *ngIf="converterTab === 'area'">
+          <div class="col-md-3">
+            <label class="form-label">Length</label>
+            <input type="number" class="form-control" name="areaLength" [(ngModel)]="areaLength" placeholder="e.g. 10">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Width</label>
+            <input type="number" class="form-control" name="areaWidth" [(ngModel)]="areaWidth" placeholder="e.g. 8">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Unit</label>
+            <select class="form-select" name="areaUnit" [(ngModel)]="areaUnit">
+              <option *ngFor="let unit of measurementUnits" [value]="unit">{{ unit }}</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Area (Sq.ft)</label>
+            <div class="form-control bg-light fw-semibold">{{ areaInSqFt !== null ? (areaInSqFt | number: '1.0-2') : '-' }}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
