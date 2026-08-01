@@ -11,6 +11,8 @@ import { CLIENT_CONFIG, ClientConfig } from './client.config';
   styleUrls: ['./app.css']
 })
 export class App implements OnInit {
+  protected readonly currentYear = new Date().getFullYear();
+
   constructor(
     @Inject(CLIENT_CONFIG) protected readonly clientConfig: ClientConfig,
     private readonly titleService: Title,

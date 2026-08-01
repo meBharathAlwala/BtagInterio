@@ -251,6 +251,12 @@ body {
   }
 }
 
+.site-footer {
+  background-color: #f8f7fb;
+  color: #6c757d;
+  border-top: 1px solid #eee;
+}
+
 .whatsapp-fab {
   position: fixed;
   right: 1rem;
