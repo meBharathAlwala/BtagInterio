@@ -1,0 +1,37 @@
+<section class="page-section fade-in admin-login-section">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card border-0 shadow-sm p-4 p-lg-5 admin-login-card">
+          <h2 class="h4 mb-4 text-center">Admin Login</h2>
+          <form (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input
+                type="text"
+                name="username"
+                class="form-control"
+                [(ngModel)]="username"
+                autocomplete="username"
+                required
+              >
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                [(ngModel)]="password"
+                autocomplete="current-password"
+                required
+              >
+            </div>
+            <p class="text-danger small mb-3" *ngIf="error()">Invalid username or password.</p>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

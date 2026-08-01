@@ -38,6 +38,12 @@ export interface ClientConfig {
     templateId: string;
     publicKey: string;
   };
+
+  /** Credentials used to access the admin area (/admin/login) */
+  admin: {
+    username: string;
+    password: string;
+  };
 }
 
 export const CLIENT_CONFIG = new InjectionToken<ClientConfig>('CLIENT_CONFIG');
@@ -65,5 +71,10 @@ export const clientConfig: ClientConfig = {
     serviceId: 'service_6dfmmlt',
     templateId: 'template_r5l7c4k',
     publicKey: 'mWmJ7Dnh3hSJIud1_',
+  },
+
+  admin: {
+    username: 'btag',
+    password: 'btag@321',
   },
 };

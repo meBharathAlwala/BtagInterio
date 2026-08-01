@@ -1,0 +1,120 @@
+.estimate-table th,
+.estimate-table td {
+  vertical-align: middle;
+}
+
+.estimate-table {
+  min-width: 900px;
+}
+
+.room-section {
+  border: 1px solid rgba(123, 94, 167, 0.16);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  background: linear-gradient(180deg, rgba(123, 94, 167, 0.04), rgba(123, 94, 167, 0.01));
+}
+
+.room-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.room-section-total {
+  min-width: 120px;
+  text-align: right;
+  font-weight: 700;
+  color: #7b5ea7;
+}
+
+.room-section-empty {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: rgba(123, 94, 167, 0.05);
+}
+
+.estimate-status {
+  border-radius: 0.85rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.92rem;
+  border: 1px solid transparent;
+}
+
+.estimate-status-success {
+  background: #eef8f1;
+  border-color: #cbe8d2;
+  color: #256846;
+}
+
+.estimate-status-error {
+  background: #fff1f1;
+  border-color: #f0cccc;
+  color: #9a2f2f;
+}
+
+.estimate-status-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #f5f1fb;
+  border-color: #d9cfee;
+  color: #5b4581;
+}
+
+.estimate-status-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(91, 69, 129, 0.2);
+  border-top-color: #7b5ea7;
+  border-radius: 50%;
+  animation: estimate-spin 0.8s linear infinite;
+}
+
+@keyframes estimate-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.col-qty { width: 90px; }
+.col-rate { width: 130px; }
+.col-amount { width: 130px; }
+.col-action { width: 48px; }
+
+.estimate-total strong {
+  font-size: 1.15rem;
+  color: #7B5EA7;
+}
+
+.estimate-wrapper .btn-primary {
+  background: #7B5EA7;
+  border-color: #7B5EA7;
+}
+
+.estimate-wrapper .btn-primary:hover {
+  background: #6a4f92;
+  border-color: #6a4f92;
+}
+
+.estimate-wrapper .btn-outline-primary {
+  color: #7B5EA7;
+  border-color: #7B5EA7;
+}
+
+.estimate-wrapper .btn-outline-primary:hover {
+  background: #7B5EA7;
+  border-color: #7B5EA7;
+  color: #fff;
+}
+
+.suggestion-chip {
+  border-radius: 999px;
+  font-size: 0.82rem;
+}

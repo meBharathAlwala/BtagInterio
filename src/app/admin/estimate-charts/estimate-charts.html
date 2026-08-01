@@ -1,0 +1,70 @@
+<div class="estimate-charts-wrapper">
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+        <div>
+          <h5 class="mb-1">Estimate Charts</h5>
+          <p class="text-muted small mb-0">Visual summary of section-wise and material-wise estimate totals.</p>
+        </div>
+        <div class="d-flex align-items-center gap-3 flex-wrap justify-content-end">
+          <div class="charts-total">Total: ₹ {{ snapshot.total | number: '1.0-2' }}</div>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="downloadCharts()" [disabled]="!snapshot.items.length">
+            Download Charts
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="!snapshot.items.length" class="text-muted">
+        No estimate data yet. Add values in Material Estimate to view charts here.
+      </div>
+
+      <div class="chart-grid" *ngIf="snapshot.items.length">
+        <section class="chart-panel">
+          <div class="chart-panel-header">
+            <h6 class="mb-0">Section Wise Chart</h6>
+            <span class="chart-count">{{ sectionRows.length }} sections</span>
+          </div>
+
+          <div *ngIf="sectionRows.length; else noSectionData" class="chart-list">
+            <div class="chart-row" *ngFor="let row of sectionRows">
+              <div class="chart-row-head">
+                <span class="chart-label">{{ row.label }}</span>
+                <span class="chart-value">₹ {{ row.total | number: '1.0-2' }}</span>
+              </div>
+              <div class="chart-track">
+                <div class="chart-bar chart-bar-section" [style.width.%]="row.width"></div>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #noSectionData>
+            <div class="chart-empty">No section totals available yet.</div>
+          </ng-template>
+        </section>
+
+        <section class="chart-panel">
+          <div class="chart-panel-header">
+            <h6 class="mb-0">Material Wise Chart</h6>
+            <span class="chart-count">{{ materialRows.length }} materials</span>
+          </div>
+
+          <div *ngIf="materialRows.length; else noMaterialData" class="chart-list">
+            <div class="chart-row" *ngFor="let row of materialRows">
+              <div class="chart-row-head">
+                <span class="chart-label">{{ row.label }}</span>
+                <span class="chart-value">₹ {{ row.total | number: '1.0-2' }}</span>
+              </div>
+              <div class="chart-track">
+                <div class="chart-bar chart-bar-material" [style.width.%]="row.width"></div>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #noMaterialData>
+            <div class="chart-empty">No material totals available yet.</div>
+          </ng-template>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

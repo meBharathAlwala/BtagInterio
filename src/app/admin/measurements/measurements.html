@@ -1,0 +1,82 @@
+<div class="measurements-wrapper">
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+      <h5 class="mb-3">Site Measurements</h5>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Client Name</label>
+          <input type="text" class="form-control" name="clientName" [(ngModel)]="clientName" placeholder="Optional">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Project Location</label>
+          <input type="text" class="form-control" name="projectLocation" [(ngModel)]="projectLocation" placeholder="Optional">
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <div class="table-responsive">
+        <table class="table align-middle measurements-table">
+          <thead>
+            <tr>
+              <th>Room / Area</th>
+              <th class="col-dim">Length</th>
+              <th class="col-dim">Width</th>
+              <th class="col-unit">Unit</th>
+              <th class="col-sqft">Area (Sq.ft)</th>
+              <th class="col-action"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of rows; let i = index">
+              <td>
+                <input type="text" class="form-control" [name]="'room' + i" [(ngModel)]="row.roomName" placeholder="e.g. Kitchen">
+              </td>
+              <td>
+                <input type="number" min="0" class="form-control" [name]="'length' + i" [(ngModel)]="row.length">
+              </td>
+              <td>
+                <input type="number" min="0" class="form-control" [name]="'width' + i" [(ngModel)]="row.width">
+              </td>
+              <td>
+                <select class="form-select" [name]="'unit' + i" [(ngModel)]="row.unit">
+                  <option *ngFor="let unit of measurementUnits" [value]="unit">{{ unit }}</option>
+                </select>
+              </td>
+              <td class="fw-semibold">{{ rowSqFt(row) !== null ? (rowSqFt(row) | number: '1.0-2') : '-' }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="removeRow(i)"
+                  [disabled]="rows.length === 1"
+                  aria-label="Remove row"
+                >&times;</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+        <button type="button" class="btn btn-sm btn-outline-primary" (click)="addRow()">+ Add Room</button>
+        <span class="text-muted small ms-1">Quick add:</span>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary suggestion-chip"
+          *ngFor="let suggestion of roomSuggestions"
+          (click)="addSuggestedRow(suggestion)"
+        >{{ suggestion }}</button>
+      </div>
+
+      <div class="d-flex justify-content-end align-items-center gap-4">
+        <div class="measurements-total">
+          <span class="text-muted me-2">Total Area:</span>
+          <strong>{{ totalSqFt | number: '1.0-2' }} Sq.ft</strong>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="downloadPdf()">Download PDF</button>
+      </div>
+    </div>
+  </div>
+</div>

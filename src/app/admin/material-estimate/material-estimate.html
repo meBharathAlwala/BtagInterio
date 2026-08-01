@@ -1,0 +1,169 @@
+<div class="estimate-wrapper">
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+      <h5 class="mb-3">Material Estimate</h5>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Client Name</label>
+          <input type="text" class="form-control" name="clientName" [(ngModel)]="clientName" (ngModelChange)="syncRevisedQuotation()" placeholder="Optional">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Project Location</label>
+          <input type="text" class="form-control" name="projectLocation" [(ngModel)]="projectLocation" (ngModelChange)="syncRevisedQuotation()" placeholder="Optional">
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <div class="text-muted small">Create a revised quotation from the current estimate values.</div>
+        <button type="button" class="btn btn-primary" (click)="generateRevisedQuotation()">
+          Generate Revised Quotation
+        </button>
+      </div>
+
+      <div *ngIf="isUploadingEstimate" class="estimate-status estimate-status-progress mb-3">
+        <span class="estimate-status-spinner" aria-hidden="true"></span>
+        <span>Uploading and processing Excel file. Please wait...</span>
+      </div>
+
+      <div
+        *ngIf="uploadStatusMessage && !isUploadingEstimate"
+        class="estimate-status mb-3"
+        [class.estimate-status-success]="uploadStatusType === 'success'"
+        [class.estimate-status-error]="uploadStatusType === 'error'"
+      >
+        {{ uploadStatusMessage }}
+      </div>
+
+      <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+        <input #estimateUploadInput type="file" class="d-none" accept=".xlsx,.xls,.csv" (change)="onEstimateFileSelected($event)">
+        <button type="button" class="btn btn-outline-primary" (click)="estimateUploadInput.click()" [disabled]="isUploadingEstimate">
+          {{ selectedEstimateFile ? 'Change File' : 'Choose File' }}
+        </button>
+        <button type="button" class="btn btn-outline-primary" (click)="submitEstimateUpload(estimateUploadInput)" [disabled]="!selectedEstimateFile || isUploadingEstimate">
+          {{ isUploadingEstimate ? 'Submitting...' : 'Submit' }}
+        </button>
+      </div>
+
+      <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+        <span class="text-muted small me-1">Add room section:</span>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary suggestion-chip"
+          *ngFor="let suggestion of roomSuggestions"
+          (click)="ensureRoomSection(suggestion)"
+        >{{ suggestion }}</button>
+      </div>
+
+      <div class="room-section" *ngFor="let room of visibleRooms; trackBy: trackByRoom">
+        <div class="room-section-header">
+          <div>
+            <h6 class="mb-1">{{ room }} Estimate</h6>
+            <p class="text-muted small mb-0">Add materials only for {{ room.toLowerCase() }} in this section.</p>
+          </div>
+          <div class="room-section-total">₹ {{ getRoomTotal(room) | number: '1.0-2' }}</div>
+        </div>
+
+        <div class="table-responsive" *ngIf="getRoomEntries(room).length; else emptyRoomSection">
+          <table class="table align-middle estimate-table mb-0">
+            <thead>
+              <tr>
+                <th>Material / Work</th>
+                <th>Thickness / Laminate / Hardware</th>
+                <th>Brand</th>
+                <th class="col-qty">Qty</th>
+                <th class="col-rate">Cost</th>
+                <th class="col-amount">Amount (₹)</th>
+                <th class="col-action"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let entry of getRoomEntries(room); trackBy: trackByEntry">
+                <td>
+                  <select
+                    class="form-select"
+                    [name]="'material' + entry.index"
+                    [(ngModel)]="entry.item.material"
+                    (ngModelChange)="onMaterialChange(entry.item)"
+                  >
+                    <option value="">Select material</option>
+                    <option *ngFor="let material of materialOptions" [value]="material">{{ material }}</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    class="form-select"
+                    [name]="'thickness' + entry.index"
+                    [(ngModel)]="entry.item.thickness"
+                    (ngModelChange)="syncRevisedQuotation()"
+                    [disabled]="!isPlywood(entry.item.material) && !isLaminate(entry.item.material) && !isHardware(entry.item.material) && !isElectricalWork(entry.item.material)"
+                  >
+                    <option value="">{{ getThicknessPlaceholder(entry.item.material) }}</option>
+                    <option *ngFor="let thickness of plywoodThicknessOptions" [value]="thickness" [hidden]="!isPlywood(entry.item.material)">{{ thickness }}</option>
+                    <option *ngFor="let laminate of laminateOptions" [value]="laminate" [hidden]="!isLaminate(entry.item.material)">{{ laminate }}</option>
+                    <option *ngFor="let hardware of hardwareOptions" [value]="hardware" [hidden]="!isHardware(entry.item.material)">{{ hardware }}</option>
+                    <option *ngFor="let electricalItem of electricalWorkOptions" [value]="electricalItem" [hidden]="!isElectricalWork(entry.item.material)">{{ electricalItem }}</option>
+                  </select>
+                </td>
+                <td>
+                  <input type="text" class="form-control" [name]="'brand' + entry.index" [(ngModel)]="entry.item.brand" (ngModelChange)="syncRevisedQuotation()" placeholder="e.g. Century">
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    class="form-control"
+                    [name]="'qty' + entry.index"
+                    [(ngModel)]="entry.item.quantity"
+                    (ngModelChange)="syncRevisedQuotation()"
+                    placeholder="e.g. 3"
+                  >
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    class="form-control"
+                    [name]="'rate' + entry.index"
+                    [(ngModel)]="entry.item.rate"
+                    (ngModelChange)="syncRevisedQuotation()"
+                    placeholder="e.g. 3150"
+                  >
+                </td>
+                <td class="fw-semibold">{{ entry.item.quantity * entry.item.rate | number: '1.0-2' }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="removeItem(entry.index)"
+                    aria-label="Remove item"
+                  >&times;</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ng-template #emptyRoomSection>
+          <div class="room-section-empty text-muted small">No materials added for {{ room.toLowerCase() }} yet.</div>
+        </ng-template>
+
+        <div class="d-flex justify-content-end mt-3">
+          <button type="button" class="btn btn-sm btn-outline-primary" (click)="addItem(room)">+ Add {{ room }} Item</button>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end align-items-center gap-4">
+        <div class="estimate-total">
+          <span class="text-muted me-2">Total:</span>
+          <strong>₹ {{ total | number: '1.0-2' }}</strong>
+        </div>
+        <button type="button" class="btn btn-outline-primary" (click)="downloadPdf()">Download PDF</button>
+        <button type="button" class="btn btn-outline-danger" (click)="clearEstimate()">Clear Estimate</button>
+        <button type="button" class="btn btn-outline-primary" (click)="downloadExcel()">Download Excel</button>
+      </div>
+    </div>
+  </div>
+</div>
