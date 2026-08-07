@@ -7,7 +7,7 @@ import { InjectionToken } from '@angular/core';
  * change.
  */
 export interface ClientConfig {
-  /** Full brand/business name, e.g. "Btag Interio" */
+  /** Full brand/business name, e.g. "Serene Aura Wellness Spa" */
   name: string;
   /** Short name used in the navbar brand and browser tab title */
   shortName: string;
@@ -17,9 +17,9 @@ export interface ClientConfig {
   logo: string;
 
   contact: {
-    /** Human readable phone number, e.g. "6303800938" */
+    /** Human readable phone number, e.g. "9876543210" */
     phone: string;
-    /** Phone number in international format for tel: links, e.g. "+916303800938" */
+    /** Phone number in international format for tel: links, e.g. "+919876543210" */
     phoneIntl: string;
     /** WhatsApp number (digits with country code, no +) for wa.me links */
     whatsappNumber: string;
@@ -43,22 +43,22 @@ export interface ClientConfig {
 export const CLIENT_CONFIG = new InjectionToken<ClientConfig>('CLIENT_CONFIG');
 
 export const clientConfig: ClientConfig = {
-  name: 'Btag Interio',
-  shortName: 'Btag',
-  title: 'Btag',
-  logo: '/btag_logo.png',
+  name: 'Serene Aura Wellness Spa',
+  shortName: 'Serene Aura',
+  title: 'Serene Aura Wellness Spa',
+  logo: '/favicon.png',
 
   contact: {
-    phone: '6303800938',
-    phoneIntl: '+916303800938',
-    whatsappNumber: '916303800938',
-    email: 'btag.interio@gmail.com',
-    location: 'Hyderabad',
+    phone: '9876543210',
+    phoneIntl: '+919876543210',
+    whatsappNumber: '919876543210',
+    email: 'hello@sereneaura.com',
+    location: 'Hyderabad, India',
   },
 
   social: {
-    instagramUrl: 'https://www.instagram.com/btaginterio/',
-    youtubeUrl: 'https://www.youtube.com/@BtagInterio',
+    instagramUrl: 'https://www.instagram.com/',
+    youtubeUrl: 'https://www.youtube.com/',
   },
 
   emailjs: {

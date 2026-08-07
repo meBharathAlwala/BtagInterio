@@ -21,15 +21,15 @@
   font-size: 0.78rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  background: rgba(123, 94, 167, 0.12);
-  color: #7B5EA7;
+  background: rgba(164, 111, 208, 0.16);
+  color: #c89be8;
 }
 .section-title {
   font-size: clamp(2.1rem, 2.5vw, 2.7rem);
   font-weight: 800;
   letter-spacing: -0.04em;
   margin-bottom: 0.75rem;
-  color: #4A2F7A;
+  color: #c89be8;
 }
 .section-copy {
   font-size: 1rem;

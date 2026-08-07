@@ -4,36 +4,153 @@
   opacity: 0;
   animation: popIn 0.6s ease forwards;
   overflow: hidden;
+  background: #fffdf9;
+  cursor: pointer;
 }
 
 .service-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1rem 2rem rgba(79, 111, 82, 0.12);
 }
 
-.service-media {
+.service-image-wrap {
+  position: relative;
   overflow: hidden;
   aspect-ratio: 4 / 3;
+  background: #e8e3d9;
 }
 
-.service-img {
+.service-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
-.service-card:hover .service-img {
+.service-card:hover .service-image {
   transform: scale(1.08);
 }
 
-.service-type-list {
-  padding-left: 1.1rem;
-  color: #444;
+.service-hover-info {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.82) 100%);
+  color: #fff;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
 }
 
-.service-type-list li {
+.service-card:hover .service-hover-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-hover-info h6 {
   margin-bottom: 0.35rem;
+  font-weight: 700;
+}
+
+.service-hover-info p {
+  margin-bottom: 0.5rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.service-hover-info ul {
+  padding-left: 1rem;
+  margin-bottom: 0;
+}
+
+.service-hover-info li {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.subservice-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.subservice-card {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.65rem;
+  border-radius: 0.9rem;
+  background: #f7f2e8;
+  border: 1px solid rgba(79, 111, 82, 0.12);
+}
+
+.subservice-image-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.8rem;
+  aspect-ratio: 16 / 9;
+}
+
+.subservice-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.subservice-card:hover .subservice-image {
+  transform: scale(1.05);
+}
+
+.subservice-hover-info {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0.75rem;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.82) 100%);
+  color: #fff;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.subservice-card:hover .subservice-hover-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.subservice-hover-info h6,
+.subservice-meta h6 {
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.subservice-hover-info p,
+.subservice-meta p {
+  margin-bottom: 0.4rem;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.subservice-hover-info ul {
+  padding-left: 1rem;
+  margin-bottom: 0;
+}
+
+.subservice-hover-info li {
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
+}
+
+.subservice-meta {
+  color: #5d6f5d;
 }
 
 .service-icon {
@@ -45,8 +162,8 @@
   border-radius: 1rem;
   margin-bottom: 1rem;
   font-size: 1.4rem;
-  color: #7B5EA7;
-  background: rgba(123, 94, 167, 0.12);
+  color: #7c4dff;
+  background: rgba(79, 111, 82, 0.12);
 }
 
 @keyframes popIn {

@@ -1,0 +1,31 @@
+.admin-shell {
+  min-height: 60vh;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.admin-card {
+  padding: 1.5rem;
+  border-radius: 1.75rem;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--theme-shadow);
+  border: 1px solid rgba(138, 101, 157, 0.12);
+  width: min(100%, 1100px);
+  margin: 0 auto;
+}
+
+.login-form,
+.dashboard {
+  margin-top: 1rem;
+}
+
+.stat-card {
+  padding: 1.25rem;
+  border-radius: 1rem;
+  background: var(--theme-background);
+  border: 1px solid rgba(138, 101, 157, 0.12);
+}
+
+.stat-card h5 {
+  color: var(--theme-primary);
+}

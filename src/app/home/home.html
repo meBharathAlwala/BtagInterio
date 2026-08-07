@@ -2,15 +2,114 @@
   <div class="container">
     <div class="row align-items-center justify-content-center gy-4">
       <div class="col-lg-6 text-center text-lg-start">
-        <p class="text-uppercase text-secondary mb-3">PREMIUM MODULAR INTERIORS</p>
+        <div class="hero-badges">
+          <span class="hero-pill">Luxury Wellness Retreat</span>
+          <span class="hero-pill">Organic Rituals</span>
+        </div>
+        <p class="text-uppercase text-secondary mb-3">RESTORATIVE WELLNESS & BEAUTY</p>
         <h1 class="hero-title mb-4">
-          Transform Your Dream Home with <span class="hero-highlight">Premium Modular Interiors</span>
+          Escape the Everyday and <span class="hero-highlight">Reawaken Your Balance</span>
         </h1>
-        <p class="lead text-muted mb-4">Complete home interiors in Hyderabad with custom designs, premium materials, factory-finished quality, and on-time installation.</p>
-        <p class="text-muted mb-4 fw-semibold">🟢 Free Consultation | 📐 Free 3D Design | 🛠 Transparent Pricing</p>
+        <p class="lead text-muted mb-4">Step into a serene retreat where expert care, calming rituals, and luxurious therapies help you feel renewed from the inside out.</p>
+        <div class="hero-actions">
+          <a [href]="'tel:' + clientConfig.contact.phoneIntl" class="btn btn-primary btn-lg">Book Appointment</a>
+          <a routerLink="/services" class="btn btn-outline-primary btn-lg">Explore Therapies</a>
+        </div>
       </div>
       <div class="col-lg-6 text-center">
-        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80" alt="Premium interior design showcase" class="hero-image">
+        <div class="hero-visual-card">
+          <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80" alt="Luxury wellness spa treatment room" class="hero-image">
+          <div class="hero-visual-badge">Spa • Wellness • Luxury</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="container py-4">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="info-card">
+          <h5>Tailored Treatments</h5>
+          <p>Every experience is carefully customized to match your comfort, goals, and energy.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card">
+          <h5>Calm, Elevated Atmosphere</h5>
+          <p>Soft lighting, tranquil sound, and warm hospitality create a peaceful escape.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card">
+          <h5>Certified Wellness Experts</h5>
+          <p>Skilled professionals guide each session with care, precision, and genuine warmth.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="container py-5">
+    <div class="row gy-4 align-items-center">
+      <div class="col-lg-6">
+        <div class="feature-spotlight">
+          <span class="section-label">Why Guests Love Us</span>
+          <h2 class="display-6">A calm, elevated experience crafted around your comfort.</h2>
+          <p>From your first welcome to your final treatment, every detail is designed to help you slow down, breathe deeply, and feel restored.</p>
+          <ul class="feature-list">
+            <li>Luxury care with a personal, attentive touch</li>
+            <li>Premium wellness rituals that blend comfort and science</li>
+            <li>Thoughtful ambiance that invites true relaxation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="feature-grid">
+          <div class="feature-tile">
+            <h5>Personalized Care</h5>
+            <p>Tailored sessions that honor your routine, preferences, and wellness goals.</p>
+          </div>
+          <div class="feature-tile">
+            <h5>Luxury Ambience</h5>
+            <p>Soft textures, calming scents, and peaceful design create a premium escape.</p>
+          </div>
+          <div class="feature-tile">
+            <h5>Holistic Wellness</h5>
+            <p>A balanced approach to beauty, relaxation, and inner renewal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="container py-5">
+    <div class="section-heading text-center mb-5">
+      <span class="section-label">Guest Favorites</span>
+      <h2 class="display-6 section-title">Beauty, balance, and comfort in every visit</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <p>“The atmosphere was pure calm, and every detail felt luxurious. I left feeling completely refreshed.”</p>
+          <strong>— Maya R.</strong>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <p>“The facial and massage combination was absolutely divine. It felt personalized and deeply relaxing.”</p>
+          <strong>— Lina K.</strong>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <p>“A beautiful space, thoughtful service, and incredible care. It’s my go-to wellness retreat.”</p>
+          <strong>— Priya S.</strong>
+        </div>
       </div>
     </div>
   </div>
@@ -19,22 +118,30 @@
 <section class="page-section featured-work">
   <div class="container py-5">
     <div class="section-heading text-center mb-5">
-      <span class="section-label">Recent Projects</span>
-      <h2 class="display-6 section-title">A Glimpse of Our Craftsmanship</h2>
+      <span class="section-label">Signature Rituals</span>
+      <h2 class="display-6 section-title">A Calm Escape Tailored to You</h2>
     </div>
     <div class="row g-4">
       <div class="col-sm-6 col-md-4" *ngFor="let item of featured; index as i">
-        <a routerLink="/portfolio" class="featured-card d-block" [style.animation-delay]="(i * 0.15) + 's'">
+        <a routerLink="/services" class="featured-card d-block" [style.animation-delay]="(i * 0.15) + 's'">
           <img [src]="item.src" [alt]="item.title" class="featured-img">
-          <div class="featured-overlay"><span>{{ item.title }}</span></div>
+          <div class="featured-overlay">
+            <span class="featured-title">{{ item.title }}</span>
+            <span class="featured-subtext">Discover the ritual</span>
+          </div>
         </a>
       </div>
     </div>
     <div class="text-center mt-4">
-      <a routerLink="/portfolio" class="btn btn-primary btn-lg">View Full Portfolio</a>
+      <a routerLink="/services" class="btn btn-primary btn-lg">Explore Treatments</a>
     </div>
   </div>
 </section>
+
+<a [href]="'tel:' + clientConfig.contact.phoneIntl" class="mobile-book-cta" aria-label="Call to book an appointment">
+  <i class="fa-solid fa-phone"></i>
+  <span>Book Appointment</span>
+</a>
 
 <button type="button" class="chat-bubble" data-bs-toggle="modal" data-bs-target="#homeMessageModal" aria-label="Send a message">
   <i class="fa-solid fa-comment-dots"></i>
@@ -44,7 +151,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header border-0">
-        <h5 class="modal-title" id="homeMessageModalLabel">Send a Message</h5>
+        <h5 class="modal-title" id="homeMessageModalLabel">Book a Session</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

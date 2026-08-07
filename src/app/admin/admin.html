@@ -1,0 +1,35 @@
+<section class="admin-shell fade-in">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="admin-card">
+          <div class="admin-header">
+            <span class="section-label">Admin Access</span>
+            <p class="section-copy mb-0">Use the credentials you requested to access the admin area.</p>
+          </div>
+
+          <div *ngIf="!isLoggedIn" class="login-form">
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input type="text" class="form-control" [(ngModel)]="username" placeholder="Enter username" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control" [(ngModel)]="password" placeholder="Enter password" />
+            </div>
+            <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+            <button type="button" class="btn btn-primary" (click)="login()">Login</button>
+          </div>
+
+          <div *ngIf="isLoggedIn" class="dashboard">
+            <div class="alert alert-success">Welcome back, admin.</div>
+            <div class="mt-4">
+              <app-marketing-center></app-marketing-center>
+            </div>
+            <button type="button" class="btn btn-outline-primary mt-4" (click)="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

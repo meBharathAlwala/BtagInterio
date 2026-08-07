@@ -1,9 +1,9 @@
 <section class="page-section fade-in">
   <div class="container py-5">
     <div class="section-heading text-center mb-5">
-      <span class="section-label">Our Work</span>
-      <h2 class="display-6 section-title">Portfolio</h2>
-      <p class="section-copy text-muted mx-auto">Explore premium interiors created for modern living spaces across Hyderabad and beyond.</p>
+      <span class="section-label">Our Sanctuary</span>
+      <h2 class="display-6 section-title">Spa Gallery</h2>
+      <p class="section-copy text-muted mx-auto">A glimpse into the calming spaces, signature rituals, and comforting details that define our wellness experience.</p>
     </div>
 
     <div class="row g-4 portfolio-grid">
@@ -17,7 +17,7 @@
                   <span class="portfolio-badge">Featured</span>
                   <h5 class="mb-1 text-white">{{ item.title }}</h5>
                 </div>
-                <button type="button" class="btn btn-sm btn-light" attr.data-bs-toggle="modal" [attr.data-bs-target]="'#portfolioModal-' + i">View</button>
+                <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" [attr.data-bs-target]="'#portfolioModal-' + i">View</button>
               </div>
             </div>
           </div>
@@ -25,8 +25,7 @@
             <p class="portfolio-description text-muted mb-0">{{ item.description }}</p>
           </div>
         </div>
-        
-        <!-- Modal -->
+
         <div class="modal fade" id="portfolioModal-{{i}}" tabindex="-1" aria-labelledby="portfolioModalLabel-{{i}}" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content portfolio-modal">
