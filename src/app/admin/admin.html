@@ -3,10 +3,6 @@
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="admin-card">
-          <div class="admin-header">
-            <span class="section-label">Admin Access</span>
-          </div>
-
           <div *ngIf="!isLoggedIn" class="login-form">
             <div class="mb-3">
               <label class="form-label">Username</label>
@@ -21,9 +17,7 @@
           </div>
 
           <div *ngIf="isLoggedIn" class="dashboard">
-            <div class="mt-4">
-              <app-marketing-center></app-marketing-center>
-            </div>
+            <app-marketing-center></app-marketing-center>
             <button type="button" class="btn btn-outline-primary mt-4" (click)="logout()">Logout</button>
           </div>
         </div>
