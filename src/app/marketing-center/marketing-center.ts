@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, ViewChild, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CLIENT_CONFIG, ClientConfig } from '../client.config';
 
 interface TemplateOption {
   id: string;
@@ -33,8 +34,8 @@ export class MarketingCenter implements OnDestroy {
   @ViewChild('posterCanvas', { static: false }) posterCanvas!: ElementRef<HTMLDivElement>;
 
   private resizeObserver?: ResizeObserver;
-  previewScale = 1;
-  frameActualHeight = 0;
+  previewScale = signal(1);
+  frameActualHeight = signal(0);
 
   @ViewChild('posterScaleOuter')
   set posterScaleOuterRef(ref: ElementRef<HTMLDivElement> | undefined) {
@@ -47,7 +48,28 @@ export class MarketingCenter implements OnDestroy {
     Promise.resolve().then(() => this.updatePreviewScale());
   }
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(@Inject(CLIENT_CONFIG) protected readonly clientConfig: ClientConfig) {
+    this.phone = this.clientConfig.contact.phoneIntl;
+    this.whatsapp = `+${this.clientConfig.contact.whatsappNumber}`;
+  }
+
+  get brandShortName(): string {
+    return this.clientConfig.shortName;
+  }
+
+  get brandSubtitle(): string {
+    return this.clientConfig.name.replace(this.clientConfig.shortName, '').trim() || this.clientConfig.shortName;
+  }
+
+  get brandInitials(): string {
+    return this.clientConfig.shortName
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((word) => word[0])
+      .join('')
+      .slice(0, 2)
+      .toUpperCase();
+  }
 
   ngOnDestroy(): void {
     this.resizeObserver?.disconnect();
@@ -71,10 +93,9 @@ export class MarketingCenter implements OnDestroy {
     this.resizeObserver?.observe(frame);
     const scale = Math.min(1, availableWidth / this.frameWidthPx);
     const actualHeight = frame.offsetHeight || this.frameMinHeightPx;
-    if (scale !== this.previewScale || actualHeight !== this.frameActualHeight) {
-      this.previewScale = scale;
-      this.frameActualHeight = actualHeight;
-      this.cdr.markForCheck();
+    if (scale !== this.previewScale() || actualHeight !== this.frameActualHeight()) {
+      this.previewScale.set(scale);
+      this.frameActualHeight.set(actualHeight);
     }
   }
 
@@ -84,13 +105,14 @@ export class MarketingCenter implements OnDestroy {
   originalPrice = '₹180';
   offerPrice = '₹120';
   validUntil = '2026-10-31';
-  phone = '+91 98765 43210';
-  whatsapp = '+91 98765 43210';
+  phone: string;
+  whatsapp: string;
   website = 'https://sereneaura.com';
   address = '42 Lotus Avenue, Wellness City';
   cta = 'Book Now';
   templateId = 'luxury';
   themeColor = '#8A659D';
+  fontColor = '#2c1b3d';
   fontFamily = 'Poppins';
   logoFileName = 'Spa Logo';
   backgroundFileName = 'Background';

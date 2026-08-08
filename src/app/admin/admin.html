@@ -5,7 +5,6 @@
         <div class="admin-card">
           <div class="admin-header">
             <span class="section-label">Admin Access</span>
-            <p class="section-copy mb-0">Use the credentials you requested to access the admin area.</p>
           </div>
 
           <div *ngIf="!isLoggedIn" class="login-form">
@@ -22,7 +21,6 @@
           </div>
 
           <div *ngIf="isLoggedIn" class="dashboard">
-            <div class="alert alert-success">Welcome back, admin.</div>
             <div class="mt-4">
               <app-marketing-center></app-marketing-center>
             </div>

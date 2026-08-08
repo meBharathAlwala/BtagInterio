@@ -10,6 +10,53 @@
   margin-bottom: 1rem;
 }
 
+.export-actions {
+  align-items: center;
+}
+
+.export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(138, 101, 157, 0.32);
+  background: #ffffff;
+  color: #4d2d63;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(138, 101, 157, 0.1);
+  transition: all 0.2s ease;
+}
+
+.export-btn-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.export-btn:hover {
+  background: #fdfbff;
+  border-color: #a46fd0;
+  box-shadow: 0 8px 18px rgba(138, 101, 157, 0.2);
+  transform: translateY(-1px);
+}
+
+.export-btn:active {
+  transform: translateY(0);
+}
+
+.export-btn-primary {
+  background: linear-gradient(135deg, #a46fd0 0%, #7f4ea2 100%);
+  color: #ffffff;
+  border-color: #7f4ea2;
+  box-shadow: 0 8px 18px rgba(138, 101, 157, 0.24);
+}
+
+.export-btn-primary:hover {
+  background: linear-gradient(135deg, #b17fdb 0%, #8a58ad 100%);
+  border-color: #8a58ad;
+}
+
 .tab-btn {
   border: 1px solid rgba(138, 101, 157, 0.32);
   background: #fdfbff;
@@ -46,7 +93,34 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: stretch;
+}
+
+.preview-card {
   align-items: center;
+}
+
+.form-section {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba(138, 101, 157, 0.14);
+}
+
+.form-section:first-child {
+  padding-top: 0;
+}
+
+.form-section.form-section-last {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.form-section-title {
+  margin: 0 0 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--theme-primary);
 }
 
 .preview-toolbar {
@@ -59,10 +133,16 @@
   color: var(--theme-primary);
 }
 
+.preview-toolbar-title {
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
 .poster-scale-outer {
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   overflow: hidden;
 }
 
@@ -205,11 +285,11 @@
 
 .poster-name {
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 1.6rem;
 }
 
 .poster-subtitle {
-  font-size: 0.82rem;
+  font-size: 1.15rem;
   opacity: 0.8;
 }
 

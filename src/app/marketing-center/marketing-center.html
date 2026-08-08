@@ -6,11 +6,16 @@
         <h1 class="section-title mb-2">Create stunning spa promotions</h1>
         <p class="section-copy mb-0">Design elegant offers for Instagram, WhatsApp, and print-ready flyers in minutes.</p>
       </div>
-      <div class="d-flex gap-2 flex-wrap">
-        <button class="btn btn-outline-primary" (click)="downloadPoster('png')">PNG</button>
-        <button class="btn btn-outline-primary" (click)="downloadPoster('jpg')">JPG</button>
-        <button class="btn btn-outline-primary" (click)="downloadPoster('pdf')">PDF</button>
-        <button class="btn btn-primary" (click)="printPoster()">Print</button>
+      <div class="d-flex gap-2 flex-wrap export-actions" *ngIf="activeTab === 'preview'">
+        <button class="export-btn" (click)="downloadPoster('png')">
+          <span class="export-btn-icon">🖼️</span>PNG
+        </button>
+        <button class="export-btn" (click)="downloadPoster('jpg')">
+          <span class="export-btn-icon">🖼️</span>JPG
+        </button>
+        <button class="export-btn" (click)="downloadPoster('pdf')">
+          <span class="export-btn-icon">📄</span>PDF
+        </button>
       </div>
     </div>
 
@@ -22,129 +27,144 @@
     <div class="row g-4">
       <div class="col-12" *ngIf="activeTab === 'editor'">
         <div class="editor-card">
-          <div class="mb-3">
-            <label class="form-label">Occasion / Campaign</label>
-            <select class="form-select" [ngModel]="occasionId" (ngModelChange)="applyOccasion($event)">
-              <ng-container *ngFor="let category of occasionCategories">
-                <optgroup [label]="category.label">
-                  <option *ngFor="let occasion of occasionsByCategory(category.id)" [value]="occasion.id">{{ occasion.name }}</option>
-                </optgroup>
-              </ng-container>
-            </select>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Offer Title</label>
-            <input class="form-control" [(ngModel)]="title" placeholder="Luxury Wellness Escape" />
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Offer Description</label>
-            <textarea class="form-control offer-description" rows="5" [(ngModel)]="description"></textarea>
-          </div>
-
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label">Discount %</label>
-              <input type="number" class="form-control" [(ngModel)]="discount" />
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Offer Price</label>
-              <input class="form-control" [(ngModel)]="offerPrice" />
-            </div>
-          </div>
-
-          <div class="row g-3 mt-1">
-            <div class="col-md-6">
-              <label class="form-label">Original Price</label>
-              <input class="form-control" [(ngModel)]="originalPrice" />
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Special Tag</label>
-              <input class="form-control" [(ngModel)]="cta" />
-            </div>
-          </div>
-
-          <div class="row g-3 mt-1">
-            <div class="col-md-6">
-              <label class="form-label">Valid Until</label>
-              <input type="date" class="form-control" [(ngModel)]="validUntil" />
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Phone Number</label>
-              <input class="form-control" [(ngModel)]="phone" />
-            </div>
-          </div>
-
-          <div class="row g-3 mt-1">
-            <div class="col-md-6">
-              <label class="form-label">WhatsApp</label>
-              <input class="form-control" [(ngModel)]="whatsapp" />
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Website</label>
-              <input class="form-control" [(ngModel)]="website" />
-            </div>
-          </div>
-
-          <div class="mb-3 mt-2">
-            <label class="form-label">Address</label>
-            <input class="form-control" [(ngModel)]="address" />
-          </div>
-
-          <div class="row g-3 mt-1">
-            <div class="col-md-6">
-              <label class="form-label">Theme Color</label>
-              <input type="color" class="form-control form-control-color" [(ngModel)]="themeColor" />
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Font</label>
-              <select class="form-select" [(ngModel)]="fontFamily">
-                <option *ngFor="let font of fonts" [value]="font">{{ font }}</option>
+          <div class="form-section">
+            <h2 class="form-section-title">Campaign</h2>
+            <div class="mb-0">
+              <label class="form-label">Occasion / Campaign</label>
+              <select class="form-select" [ngModel]="occasionId" (ngModelChange)="applyOccasion($event)">
+                <ng-container *ngFor="let category of occasionCategories">
+                  <optgroup [label]="category.label">
+                    <option *ngFor="let occasion of occasionsByCategory(category.id)" [value]="occasion.id">{{ occasion.name }}</option>
+                  </optgroup>
+                </ng-container>
               </select>
             </div>
           </div>
 
-          <div class="row g-3 mt-1">
-            <div class="col-md-6">
-              <label class="form-label">Template</label>
-              <select class="form-select" [(ngModel)]="templateId">
-                <option *ngFor="let template of templates" [value]="template.id">{{ template.name }}</option>
+          <div class="form-section">
+            <h2 class="form-section-title">Offer Content</h2>
+            <div class="mb-3">
+              <label class="form-label">Offer Title</label>
+              <input class="form-control" [(ngModel)]="title" placeholder="Luxury Wellness Escape" />
+            </div>
+            <div class="mb-0">
+              <label class="form-label">Offer Description</label>
+              <textarea class="form-control offer-description" rows="5" [(ngModel)]="description"></textarea>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2 class="form-section-title">Pricing</h2>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Discount %</label>
+                <input type="number" class="form-control" [(ngModel)]="discount" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Offer Price</label>
+                <input class="form-control" [(ngModel)]="offerPrice" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Original Price</label>
+                <input class="form-control" [(ngModel)]="originalPrice" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Special Tag</label>
+                <input class="form-control" [(ngModel)]="cta" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Valid Until</label>
+                <input type="date" class="form-control" [(ngModel)]="validUntil" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2 class="form-section-title">Contact &amp; Location</h2>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Phone Number</label>
+                <input class="form-control" [(ngModel)]="phone" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">WhatsApp</label>
+                <input class="form-control" [(ngModel)]="whatsapp" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Website</label>
+                <input class="form-control" [(ngModel)]="website" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Address</label>
+                <input class="form-control" [(ngModel)]="address" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2 class="form-section-title">Design</h2>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Theme Color</label>
+                <input type="color" class="form-control form-control-color" [(ngModel)]="themeColor" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Font Color</label>
+                <input type="color" class="form-control form-control-color" [(ngModel)]="fontColor" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Font</label>
+                <select class="form-select" [(ngModel)]="fontFamily">
+                  <option *ngFor="let font of fonts" [value]="font">{{ font }}</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Template</label>
+                <select class="form-select" [(ngModel)]="templateId">
+                  <option *ngFor="let template of templates" [value]="template.id">{{ template.name }}</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">CTA</label>
+                <select class="form-select" [(ngModel)]="cta">
+                  <option>Book Now</option>
+                  <option>Call Today</option>
+                  <option>Limited Time Offer</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2 class="form-section-title">Media</h2>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Upload Spa Logo</label>
+                <div class="dropzone" (dragover)="allowDrop($event)" (drop)="onDrop($event, 'logo')">
+                  <input type="file" accept="image/*" (change)="onLogoUpload($event)" />
+                  <span>{{ logoFileName }}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Upload Background Image</label>
+                <div class="dropzone" (dragover)="allowDrop($event)" (drop)="onDrop($event, 'background')">
+                  <input type="file" accept="image/*" (change)="onBackgroundUpload($event)" />
+                  <span>{{ backgroundFileName }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section form-section-last">
+            <h2 class="form-section-title">Export</h2>
+            <div class="mb-0">
+              <label class="form-label">Export Size</label>
+              <select class="form-select" [ngModel]="exportTarget" (ngModelChange)="onExportTargetChange($event)">
+                <option value="instagram">Instagram Post (1080 × 1080)</option>
+                <option value="status">WhatsApp Status (1080 × 1920)</option>
+                <option value="flyer">A4 Flyer (PDF)</option>
               </select>
             </div>
-            <div class="col-md-6">
-              <label class="form-label">CTA</label>
-              <select class="form-select" [(ngModel)]="cta">
-                <option>Book Now</option>
-                <option>Call Today</option>
-                <option>Limited Time Offer</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="mt-3">
-            <label class="form-label">Upload Spa Logo</label>
-            <div class="dropzone" (dragover)="allowDrop($event)" (drop)="onDrop($event, 'logo')">
-              <input type="file" accept="image/*" (change)="onLogoUpload($event)" />
-              <span>{{ logoFileName }}</span>
-            </div>
-          </div>
-
-          <div class="mt-3">
-            <label class="form-label">Upload Background Image</label>
-            <div class="dropzone" (dragover)="allowDrop($event)" (drop)="onDrop($event, 'background')">
-              <input type="file" accept="image/*" (change)="onBackgroundUpload($event)" />
-              <span>{{ backgroundFileName }}</span>
-            </div>
-          </div>
-
-          <div class="mt-3">
-            <label class="form-label">Export Size</label>
-            <select class="form-select" [ngModel]="exportTarget" (ngModelChange)="onExportTargetChange($event)">
-              <option value="instagram">Instagram Post (1080 × 1080)</option>
-              <option value="status">WhatsApp Status (1080 × 1920)</option>
-              <option value="flyer">A4 Flyer (PDF)</option>
-            </select>
           </div>
         </div>
       </div>
@@ -152,12 +172,12 @@
       <div class="col-12" *ngIf="activeTab === 'preview'">
         <div class="preview-card">
           <div class="preview-toolbar">
-            <span>Live Preview</span>
+            <span class="preview-toolbar-title">Live Preview</span>
             <span>{{ exportTarget === 'instagram' ? 'Instagram Post' : exportTarget === 'status' ? 'WhatsApp Status' : 'A4 Flyer' }}</span>
           </div>
 
-          <div class="poster-scale-outer" #posterScaleOuter [style.height.px]="frameActualHeight * previewScale">
-          <div class="poster-frame" #posterCanvas [style.width.px]="frameWidthPx" [style.minHeight.px]="frameMinHeightPx" [style.transform]="'scale(' + previewScale + ')'" [ngStyle]="{ fontFamily: fontFamily }">
+          <div class="poster-scale-outer" #posterScaleOuter [style.height.px]="frameActualHeight() * previewScale()">
+          <div class="poster-frame" #posterCanvas [style.width.px]="frameWidthPx" [style.minHeight.px]="frameMinHeightPx" [style.transform]="'scale(' + previewScale() + ')'" [ngStyle]="{ fontFamily: fontFamily }">
             <div class="poster-surface" [ngStyle]="{ background: selectedTemplate.background, color: themeColor }">
               <div class="poster-accent accent-left"></div>
               <div class="poster-accent accent-right"></div>
@@ -169,20 +189,20 @@
                       <img [src]="logoPreview" alt="Spa logo" />
                     </div>
                     <ng-template #defaultLogo>
-                      <div class="poster-logo placeholder">SA</div>
+                      <div class="poster-logo placeholder">{{ brandInitials }}</div>
                     </ng-template>
-                    <div>
-                      <div class="poster-name">Serene Aura</div>
-                      <div class="poster-subtitle">Wellness Spa</div>
+                    <div [ngStyle]="{ color: fontColor }">
+                      <div class="poster-name">{{ brandShortName }}</div>
+                      <div class="poster-subtitle">{{ brandSubtitle }}</div>
                     </div>
                   </div>
                   <div class="poster-badge" [ngStyle]="{ background: themeColor, color: '#fff' }">{{ formattedDiscount }}</div>
                 </div>
 
-                <div class="poster-body">
+                <div class="poster-body" [ngStyle]="{ color: fontColor }">
                   <div class="poster-eyebrow" [ngStyle]="{ color: themeColor }">{{ cta }}</div>
-                  <h2>{{ previewTitle }}</h2>
-                  <p>{{ previewDescription }}</p>
+                  <h2 [ngStyle]="{ color: fontColor }">{{ previewTitle }}</h2>
+                  <p [ngStyle]="{ color: fontColor }">{{ previewDescription }}</p>
                   <div class="price-card" [ngStyle]="{ borderColor: themeColor, boxShadow: '0 12px 24px rgba(138, 101, 157, 0.14)' }">
                     <div class="price-main">
                       <span class="price-label">Special Offer</span>
@@ -190,7 +210,7 @@
                     </div>
                     <div class="price-detail">Original: {{ originalPrice }}</div>
                   </div>
-                  <div class="meta-block">
+                  <div class="meta-block" [ngStyle]="{ color: fontColor }">
                     <div>Valid until: {{ validUntil }}</div>
                     <div>Call: {{ phone }}</div>
                     <div>WhatsApp: {{ whatsapp }}</div>
@@ -203,7 +223,7 @@
                     <img [src]="'https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=' + qrValue" alt="QR Code" />
                   </div>
                   <div class="footer-copy">
-                    <div class="address">{{ address }}</div>
+                    <div class="address" [ngStyle]="{ color: fontColor }">{{ address }}</div>
                     <button class="cta-btn" [ngStyle]="{ background: themeColor, color: '#fff' }">{{ cta }}</button>
                   </div>
                 </div>
