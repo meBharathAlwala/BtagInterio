@@ -140,7 +140,7 @@
 
           <div class="mt-3">
             <label class="form-label">Export Size</label>
-            <select class="form-select" [(ngModel)]="exportTarget">
+            <select class="form-select" [ngModel]="exportTarget" (ngModelChange)="onExportTargetChange($event)">
               <option value="instagram">Instagram Post (1080 × 1080)</option>
               <option value="status">WhatsApp Status (1080 × 1920)</option>
               <option value="flyer">A4 Flyer (PDF)</option>
@@ -156,7 +156,8 @@
             <span>{{ exportTarget === 'instagram' ? 'Instagram Post' : exportTarget === 'status' ? 'WhatsApp Status' : 'A4 Flyer' }}</span>
           </div>
 
-          <div class="poster-frame" #posterCanvas [style.width]="exportTarget === 'status' ? '480px' : exportTarget === 'flyer' ? '680px' : '580px'" [style.minHeight]="exportTarget === 'status' ? '820px' : exportTarget === 'flyer' ? '920px' : '620px'" [ngStyle]="{ fontFamily: fontFamily }">
+          <div class="poster-scale-outer" #posterScaleOuter [style.height.px]="frameActualHeight * previewScale">
+          <div class="poster-frame" #posterCanvas [style.width.px]="frameWidthPx" [style.minHeight.px]="frameMinHeightPx" [style.transform]="'scale(' + previewScale + ')'" [ngStyle]="{ fontFamily: fontFamily }">
             <div class="poster-surface" [ngStyle]="{ background: selectedTemplate.background, color: themeColor }">
               <div class="poster-accent accent-left"></div>
               <div class="poster-accent accent-right"></div>
@@ -208,6 +209,7 @@
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>

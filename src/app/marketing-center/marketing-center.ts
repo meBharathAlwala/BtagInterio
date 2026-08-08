@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -29,8 +29,54 @@ interface OccasionOption {
   templateUrl: './marketing-center.html',
   styleUrls: ['./marketing-center.css'],
 })
-export class MarketingCenter {
+export class MarketingCenter implements OnDestroy {
   @ViewChild('posterCanvas', { static: false }) posterCanvas!: ElementRef<HTMLDivElement>;
+
+  private resizeObserver?: ResizeObserver;
+  previewScale = 1;
+  frameActualHeight = 0;
+
+  @ViewChild('posterScaleOuter')
+  set posterScaleOuterRef(ref: ElementRef<HTMLDivElement> | undefined) {
+    this.resizeObserver?.disconnect();
+    this.resizeObserver = undefined;
+    if (!ref || typeof ResizeObserver === 'undefined') return;
+    this.resizeObserver = new ResizeObserver(() => this.updatePreviewScale());
+    this.resizeObserver.observe(ref.nativeElement);
+    // Defer until the poster-frame ViewChild has settled for this check cycle
+    Promise.resolve().then(() => this.updatePreviewScale());
+  }
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
+  }
+
+  get frameWidthPx(): number {
+    return this.exportTarget === 'status' ? 480 : this.exportTarget === 'flyer' ? 680 : 580;
+  }
+
+  get frameMinHeightPx(): number {
+    return this.exportTarget === 'status' ? 820 : this.exportTarget === 'flyer' ? 920 : 620;
+  }
+
+  private updatePreviewScale(): void {
+    const frame = this.posterCanvas?.nativeElement;
+    if (!frame) return;
+    const wrapper = frame.parentElement;
+    if (!wrapper) return;
+    const availableWidth = wrapper.clientWidth;
+    if (!availableWidth) return;
+    this.resizeObserver?.observe(frame);
+    const scale = Math.min(1, availableWidth / this.frameWidthPx);
+    const actualHeight = frame.offsetHeight || this.frameMinHeightPx;
+    if (scale !== this.previewScale || actualHeight !== this.frameActualHeight) {
+      this.previewScale = scale;
+      this.frameActualHeight = actualHeight;
+      this.cdr.markForCheck();
+    }
+  }
 
   title = 'Luxury Wellness Escape';
   description = 'Enjoy a soothing ritual of massage, skincare, and calm rejuvenation designed just for you.';
@@ -138,6 +184,11 @@ export class MarketingCenter {
     this.activeTab = tab;
   }
 
+  onExportTargetChange(value: string): void {
+    this.exportTarget = value;
+    Promise.resolve().then(() => this.updatePreviewScale());
+  }
+
   applyOccasion(id: string): void {
     this.occasionId = id;
     if (id === 'custom') return;
@@ -202,6 +253,15 @@ export class MarketingCenter {
       logging: false,
       scrollX: 0,
       scrollY: 0,
+      onclone: (_doc: Document, clonedElement: HTMLElement) => {
+        // Always export at full design resolution, undoing the on-screen mobile preview scale
+        clonedElement.style.transform = 'none';
+        const wrapper = clonedElement.parentElement;
+        if (wrapper) {
+          wrapper.style.height = 'auto';
+          wrapper.style.overflow = 'visible';
+        }
+      },
     });
 
     if (format === 'pdf') {
